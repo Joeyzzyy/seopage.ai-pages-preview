@@ -26,13 +26,13 @@ export async function getArticles(customerId, token) {
 };
 
 // 根据 slug 获取单篇文章
-export async function getPageBySlug(slug, lang, domain) {
+export async function getPageBySlug(slug, lang) {
   try {
     const url = `${API_URL}/pages/view/${slug}`;
-    console.log('请求 URL:', url, '参数:', { domain, lang });
+    console.log('请求 URL:', url, '参数:', { slug, lang });
     
     const response = await axios.get(url, { 
-      params: { lang, domain }
+      params: { lang, slug }
     });
     console.log('response', response.data)
     return response.data;
