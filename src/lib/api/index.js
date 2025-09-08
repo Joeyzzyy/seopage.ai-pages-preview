@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://api.websitelm.com/v1';
-// const API_URL = 'http://120.77.94.62:9091/v1';
+const API_URL = 'https://api.zhuyuejoey.com/v1';
 
 // 创建 axios 实例，更新配置
 const apiClient = axios.create({
