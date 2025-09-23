@@ -19,7 +19,8 @@ const nextConfig = {
       ],
     },
   ],
-  transpilePackages: ['@ant-design/icons', 'antd'],
+  // 移除 Ant Design 相关的 transpilePackages
+  // transpilePackages: ['@ant-design/icons', 'antd'],
   experimental: {
     optimizeCss: true,
     scrollRestoration: true,
@@ -32,11 +33,12 @@ const nextConfig = {
         splitChunks: {
           chunks: 'all',
           cacheGroups: {
-            antd: {
-              name: 'antd',
-              test: /[\\/]node_modules[\\/]antd[\\/]/,
-              priority: 10,
-            },
+            // 移除 antd 相关的缓存组配置
+            // antd: {
+            //   name: 'antd',
+            //   test: /[\\/]node_modules[\\/]antd[\\/]/,
+            //   priority: 10,
+            // },
           },
         },
       };
