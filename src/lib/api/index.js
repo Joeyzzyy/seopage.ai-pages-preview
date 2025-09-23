@@ -1,22 +1,36 @@
 import axios from 'axios';
 
-const API_URL = 'https://api.zhuyuejoey.com/v1';
+// 根据当前访问的URL判断API端点
+const getApiUrl = () => {
+  // 检查是否在浏览器环境
+  if (typeof window !== 'undefined') {
+    const currentUrl = window.location.href;
+    if (currentUrl.startsWith('http://localhost') || currentUrl.startsWith('https://localhost')) {
+      return 'https://zhuyuejoey'; // localhost环境使用zhuyuejoey
+    }
+  }
+  return 'https://api.websitelm.com/v1'; // 其他环境使用原API
+};
 
-// 创建 axios 实例，更新配置
-const apiClient = axios.create({
-  baseURL: API_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+
+// 创建 axios 实例的函数
+const createApiClient = () => {
+  return axios.create({
+    baseURL: getApiUrl(),
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
 
 // 获取批次历史数据
 export async function getArticles(customerId, token) {
   try {
     const headers = {};
+    const apiUrl = getApiUrl(); // 动态获取API URL
     
-    const response = await axios.get(`${API_URL}/pages/article/${customerId}`, {headers});
+    const response = await axios.get(`${apiUrl}/pages/article/${customerId}`, {headers});
     return response.data;
   } catch (error) {
     console.error('获取批次历史数据失败:', error);
@@ -27,7 +41,8 @@ export async function getArticles(customerId, token) {
 // 根据 slug 获取单篇文章
 export async function getPageBySlug(slug, lang) {
   try {
-    const url = `${API_URL}/pages/view/${slug}`;
+    const apiUrl = getApiUrl(); // 动态获取API URL
+    const url = `${apiUrl}/pages/view/${slug}`;
     console.log('请求 URL:', url, '参数:', { slug, lang });
     
     const response = await axios.get(url, { 
@@ -48,6 +63,7 @@ export async function getPageBySlug(slug, lang) {
 // 获取客户定制推荐
 export async function getCustomRecommendations({ pageId, customerId, title, category, lang }) {
   try {
+    const apiClient = createApiClient(); // 动态创建API客户端
     const response = await apiClient.post('/website-lm/recommend', {
       pageId,
       customerId,
