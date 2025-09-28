@@ -2,13 +2,6 @@ import axios from 'axios';
 
 // 根据当前访问的URL判断API端点
 const getApiUrl = () => {
-  // 检查是否在浏览器环境
-  if (typeof window !== 'undefined') {
-    const currentUrl = window.location.href;
-    if (currentUrl.startsWith('http://localhost') || currentUrl.startsWith('https://localhost')) {
-      return 'https://zhuyuejoey'; // localhost环境使用zhuyuejoey
-    }
-  }
   return 'https://api.websitelm.com/v1'; // 其他环境使用原API
 };
 

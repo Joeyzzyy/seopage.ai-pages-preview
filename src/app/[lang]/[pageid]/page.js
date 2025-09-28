@@ -2,7 +2,6 @@ import { getPageBySlug, getArticles } from '../../../lib/api/index';
 import { notFound } from 'next/navigation';
 import CommonLayout from '../../../components/layouts/layout';
 import Script from 'next/script'
-import cheerio from 'cheerio'; // 需要安装 cheerio: npm install cheerio
 
 export const dynamic = 'force-static'
 
