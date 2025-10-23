@@ -60,7 +60,6 @@ export default async function ArticlePage({ params }) {
                       article?.category === 'blog' || 
                       (article?.html && typeof article.html === 'string' && article.html.includes('"pageType":"blog"')) ||
                       (article?.html && typeof article.html === 'string' && article.html.includes('"content":'));
-
     return (
       <>
         <Script id="article-schema" type="application/ld+json">
