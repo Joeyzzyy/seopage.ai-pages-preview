@@ -23,9 +23,9 @@ export const BlogHeader = () => {
               <Image 
                 src="/images/seopageai-logo.png"
                 alt="SEOPAGE.AI" 
-                width={120}
-                height={32}
-                className="h-8 w-auto sm:h-9 md:h-10"
+                width={100}
+                height={26}
+                className="h-6 w-auto sm:h-7 md:h-8"
               />
             </Link>
 

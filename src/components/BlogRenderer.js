@@ -20,6 +20,7 @@ const blogContentStyles = `
     color: #7c3aed !important;
   }
   
+  
   /* Enhanced typography for better readability */
   .blog-article-content {
     line-height: 1.8 !important;
@@ -543,6 +544,28 @@ const BlogContentRenderer = ({ content, article }) => {
     return { parsedContent: null, htmlContent: content };
   }, [content]);
 
+  // 处理所有链接在新标签页打开
+  useEffect(() => {
+    const handleLinks = () => {
+      const contentElement = document.querySelector('.blog-article-content');
+      if (contentElement) {
+        const links = contentElement.querySelectorAll('a');
+        links.forEach(link => {
+          // 检查是否是外部链接
+          const href = link.getAttribute('href');
+          if (href && (href.startsWith('http') || href.startsWith('https') || href.startsWith('//'))) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+          }
+        });
+      }
+    };
+
+    // 延迟执行，确保内容已渲染
+    const timer = setTimeout(handleLinks, 100);
+    return () => clearTimeout(timer);
+  }, [htmlContent]);
+
   // 生成博客结构化数据
   const blogStructuredData = useMemo(() => {
     const title = parsedContent?.title || article?.title || 'Untitled';
@@ -608,9 +631,9 @@ const BlogContentRenderer = ({ content, article }) => {
       
       <BlogTableOfContents htmlContent={htmlContent} />
 
-      <main className="w-[70%] max-w-none mx-auto px-4 py-8 flex-grow pt-24">
+      <main className="w-[70%] max-w-none mx-auto px-4 py-4 flex-grow pt-20">
         {/* 文章元信息 */}
-        <div className="mb-6 flex items-center text-sm text-gray-600">
+        <div className="mb-4 flex items-center text-sm text-gray-600">
           {parsedContent?.cluster && (
             <>
               <span className="text-blue-600 font-medium">{parsedContent.cluster}</span>
@@ -645,13 +668,13 @@ const BlogContentRenderer = ({ content, article }) => {
         </div>
         
         {/* 文章标题 */}
-        <h1 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">
+        <h1 className="text-4xl font-bold mb-3 text-gray-900 leading-tight">
           {parsedContent?.title || article?.title || 'Untitled'}
         </h1>
         
         {/* Hero 图片 */}
         {parsedContent?.heroImage && (
-          <div className="relative w-2/3 mx-auto aspect-video mb-12">
+          <div className="relative w-2/3 mx-auto aspect-video mb-8">
             <Image
               src={parsedContent.heroImage}
               alt={parsedContent.title || 'Hero image'}
@@ -664,12 +687,20 @@ const BlogContentRenderer = ({ content, article }) => {
         )}
 
         {/* 文章内容 */}
-        <div className="mb-12">
+        <div className="mb-8">
           {htmlContent ? (
             <div 
               className="w-full blog-content-links blog-article-content" 
               dangerouslySetInnerHTML={{ __html: htmlContent }}
               onClick={(e) => {
+                // 处理链接点击事件
+                if (e.target.tagName === 'A') {
+                  const href = e.target.getAttribute('href');
+                  if (href && (href.startsWith('http') || href.startsWith('https') || href.startsWith('//'))) {
+                    e.target.setAttribute('target', '_blank');
+                    e.target.setAttribute('rel', 'noopener noreferrer');
+                  }
+                }
                 // 防止代码块内的点击事件冒泡
                 if (e.target.tagName === 'CODE' || e.target.tagName === 'PRE' || e.target.closest('code') || e.target.closest('pre')) {
                   e.stopPropagation();
