@@ -1,6 +1,4 @@
 'use client';
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 // 链接数据
@@ -85,14 +83,14 @@ export const BlogFooter = () => {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.label}>
-                    <Link
+                    <a
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs text-gray-600 hover:text-blue-600 transition-colors duration-300 leading-relaxed"
                     >
                       {link.label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -103,16 +101,22 @@ export const BlogFooter = () => {
         {/* 底部版权信息 */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-6 border-t border-gray-200 gap-4">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
-              <Image
+            <a 
+              href="https://seopage.ai" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center hover:opacity-80 transition-opacity duration-300"
+            >
+              <img
                 src="/images/seopageai-logo.png"
                 alt="SEOPage.ai"
-                width={120}
-                height={32}
                 className="h-6 w-auto"
-                priority
+                style={{
+                  imageRendering: 'crisp-edges',
+                  imageRendering: '-webkit-optimize-contrast'
+                }}
               />
-            </Link>
+            </a>
           </div>
           <div className="text-sm text-gray-600">
             @ 2025 SEOPage.ai All rights reserved
