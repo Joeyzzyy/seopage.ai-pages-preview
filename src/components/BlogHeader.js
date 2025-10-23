@@ -1,6 +1,4 @@
 'use client';
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 // 样式定义
@@ -19,15 +17,22 @@ export const BlogHeader = () => {
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between h-16">
             {/* Logo区域 - 左侧 */}
-            <Link href="/" className="flex-shrink-0 hover:scale-105 transition-transform duration-200 flex items-center">
-              <Image 
+            <a 
+              href="https://seopage.ai" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex-shrink-0 hover:scale-105 transition-transform duration-200 flex items-center"
+            >
+              <img 
                 src="/images/seopageai-logo.png"
                 alt="SEOPAGE.AI" 
-                width={100}
-                height={26}
                 className="h-6 w-auto sm:h-7 md:h-8"
+                style={{
+                  imageRendering: 'crisp-edges',
+                  imageRendering: '-webkit-optimize-contrast'
+                }}
               />
-            </Link>
+            </a>
 
             {/* CTA 按钮 - 右侧 */}
             <a 
