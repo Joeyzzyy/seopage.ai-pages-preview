@@ -65,13 +65,17 @@ export default async function ArticlePage({ params }) {
         <Script id="article-schema" type="application/ld+json">
           {JSON.stringify(articleSchema)}
         </Script>
-          <main className="flex-grow">
-            {isBlogType ? (
-              <BlogLayout article={article} />
-            ) : (
-              <CommonLayout article={article} />
-            )}
-          </main>
+        <Script 
+          src="/element-highlighter.js" 
+          strategy="afterInteractive"
+        />
+        <main className="flex-grow">
+          {isBlogType ? (
+            <BlogLayout article={article} />
+          ) : (
+            <CommonLayout article={article} />
+          )}
+        </main>
       </>
     );
   } catch (error) {

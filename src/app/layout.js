@@ -5,7 +5,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Tailwind CSS CDN - 临时恢复以确保样式正常 */}
+        {/* Tailwind CSS CDN */}
         <script src="https://cdn.tailwindcss.com"></script>
         
         {/* Tailwind 自定义配置 */}
